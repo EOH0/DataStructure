@@ -28,7 +28,7 @@ int main() {
     // tree[4] = 'C';
     // tree[8] = 'D';
     // tree[16] = 'E';
-s
+
     int N1, N2, N0;
     countNode(tree, size, &N1, &N2, &N0);
 
