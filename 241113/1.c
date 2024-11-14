@@ -16,8 +16,8 @@ void insert(treePointer* node, int k);
 treePointer findMax(treePointer root);
 
 int main() {
-    FILE* file = fopen("in3.txt", "r");
-    // FILE* file = fopen("in2.txt", "r");
+    // FILE* file = fopen("in1.txt", "r");
+    FILE* file = fopen("in2.txt", "r");
     if (file == NULL) {
         printf("file error");
         return 1;

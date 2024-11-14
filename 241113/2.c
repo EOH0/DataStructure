@@ -15,8 +15,8 @@ treePointer findMax(treePointer root);
 treePointer DupSearch(treePointer node, int k);
 
 int main() {
-    FILE* file = fopen("in3.txt", "r");
-    // FILE* file = fopen("in4.txt", "r");
+    // FILE* file = fopen("in3.txt", "r");
+    FILE* file = fopen("in4.txt", "r");
     if (file == NULL) {
         printf("file error");
         return 1;
@@ -72,7 +72,7 @@ void delete(treePointer node, int k) {
             free(LChild);
 
         } else {
-            treePointer maxNode = RChild;
+            treePointer maxNode = LChild;
             treePointer maxParent = ptr;
             
             while (maxNode->rightChild != NULL) {
