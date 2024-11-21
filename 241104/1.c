@@ -3,31 +3,31 @@
 void countNode(char tree[], int size, int *N1, int *N2, int *N0);
 
 int main() {
-    int size = 10;
-    char tree[10];
+    // int size = 10;
+    // char tree[10];
 
-    // int size = 17;
-    // char tree[17];
+    int size = 17;
+    char tree[17];
 
     for (int i = 0; i < size; i++) {
         tree[i] = '\0';
     }
 
-    tree[1] = 'A';
-    tree[2] = 'B';
-    tree[3] = 'C';
-    tree[4] = 'D';
-    tree[5] = 'E';
-    tree[6] = 'F';
-    tree[7] = 'G';
-    tree[8] = 'H';
-    tree[9] = 'I';
-
     // tree[1] = 'A';
     // tree[2] = 'B';
-    // tree[4] = 'C';
-    // tree[8] = 'D';
-    // tree[16] = 'E';
+    // tree[3] = 'C';
+    // tree[4] = 'D';
+    // tree[5] = 'E';
+    // tree[6] = 'F';
+    // tree[7] = 'G';
+    // tree[8] = 'H';
+    // tree[9] = 'I';
+
+    tree[1] = 'A';
+    tree[2] = 'B';
+    tree[4] = 'C';
+    tree[8] = 'D';
+    tree[16] = 'E';
 
     int N1, N2, N0;
     countNode(tree, size, &N1, &N2, &N0);

@@ -64,27 +64,31 @@ void append(listPointer *first, int input, listPointer *trail) {
     listPointer now = *first;
     listPointer prev = NULL;
 
-    if (now == NULL || now->data > input) {
+    // 여기까진 1.c랑 동일
+    if (now == NULL || now->data > input) { // now->data == input 경우를 else에서 처리하도록 수정
         temp->link = now;
         *first = temp;
         return;
     }
     while (now != NULL && now->data <= input) {
-        if (now->data == input) {
-            if (prev == NULL) {
-                *first = now->link;
-            } else {
+        if (now->data == input) { // 만약 현재 노드의 데이터가 입력 데이터와 같다면
+            if (prev == NULL) { // prev가 NULL이다 -> 삭제될 데이터가 first이다
+                *first = now->link; // first를 현재 노드의 다음 노드로 넘김
+            } else { // 삭제할 데이터가 노드의 중간이나 끝에 있다 (now 노드가 삭제할 데이터임)
+                // 삭제할 데이터가 노드의 중간에 있다 -> prev의 link가 now 노드의 link로 연결
+                // 삭제할 데이터 노드의 끝에 있다 -> prev의 link는 now의 link인 NULL로 연결
                 prev->link = now->link;
             }
-            free(now);
-            return;
+            free(now); // 삭제한 노드 free
+            return; // 함수 종료 아래는 실행하지 않음
         }
-        prev = now;
-        now = now->link;
+        prev = now; // 삭제할 값이 아니면 현재 노드를 prev에 저자하고
+        now = now->link; // 현재 노드를 다음으로 넘김
     }
 
-    if (temp->link == NULL) {
-        *trail = temp;
+    if (temp->link == NULL) { // list를 다 돌았음에도 삭제할 값을 찾지 못했거나 
+    // 중간에 삭제할 데이터와 같은 값을 찾지 못하고 큰 수가 나와서 while이 종료되었을떄
+        *trail = temp; // 현재 위치에 저장
     }
 }
 

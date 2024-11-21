@@ -59,8 +59,10 @@ matrixPointer mread() {
     numHeads = (numCols > numRows) ? numCols : numRows; // 더 큰 row나 col을 기준으로 head생성
 
     // 헤더 노드의 연결리스트를 위해 헤더 노드 자체 셋업
-    node = newNode();
-    node->tag = entry;
+    // node는 헤더노드이지만 matrix의 행, 열 값을 저장하기 위해 header임에도 entry를 가짐
+    node = newNode(); 
+    node->tag = entry; // 데이터를 저장하는 모든 노드는 entry태그를 가짐
+    // matrix의 행, 열 수를 저장
     node->u.entry.row = numRows;
     node->u.entry.col = numCols;
     if (!numHeads) node->right = node;
@@ -68,32 +70,41 @@ matrixPointer mread() {
         for (int i = 0; i < numHeads; i++) { 
             temp = newNode();
             hdnode[i] = temp;
-            hdnode[i]->tag = head;
+            hdnode[i]->tag = head; // header 노드는 head태그를 가짐 -> 데이터를 저장하지 않음
+            // 각 header노드는 초기엔 자기 자신을 가리키도록 초기화함 (비어있는 상태에)
             hdnode[i]->right = temp;
             hdnode[i]->u.next = temp;
         }
-        currentRow = 0;
-        last = hdnode[0]; // 현재 row의 마지막 노드
+        currentRow = 0; // 현재 처리 중인 행의 인덱스를 나타내는 변수
+        // 첫번쨰 행부터 시작하기 때문에 0으로 초기화
+        last = hdnode[0]; // 현재 행의 마지막 노드를 첫번쨰 해의 헤더 노드로 초기화
+        // last는 행렬의 각 행에서 마지막으로 추가된 노드를 가리키는 포인터임
+        // 오직 행에서 가장 마지막에 있는 노드를 위치함
+        // 열의 last를 굳이 하지않는 이유는 열은 다 독립적인 리스트기 때문에
+        // last는 row값에 따라 어떤 row의 last인지 달라짐(매 반복마다 row값에 따라 달라짐)
+
 
         printf("행, 열, 값 입력\n");
         for (int i = 0; i < numTerms; i++) {
             scanf("%d %d %d", &row, &col, &value);
 
-            if (row > currentRow) { // 현재 row를 닫는다? 이게 뭐야
-                last->right = hdnode[currentRow];
-                currentRow = row;
-                last = hdnode[row];
+            if (row > currentRow) { // 현재 row를 닫는다
+                // 입력은 무조건 row 순서대로 들어오기 때문에 한 row가 끝나고 새로운 row에 대한 작업을 시작할때
+                last->right = hdnode[currentRow]; // 현재row의 마지막 노드의 link를 헤더에 연결해주고
+                currentRow = row; // 현재row를 입력된 row로 변경
+                last = hdnode[row]; // 또다시 row의 마지막 노드인 last를 초기화
             }
             temp = newNode();
-            temp->tag = entry;
+            temp->tag = entry; // 값을 저장하는 노드이므로 entry 태그
+            // temp가 위치할 row, col과 temp의 value 저장
             temp->u.entry.row = row;
             temp->u.entry.col = col;
             temp->u.entry.value = value;
 
-            last->right = temp; // row 리스트에 링크
-            last = temp;
+            last->right = temp; // last는 header이거나 가장 마지막의 노드이므로 last뒤에 붙히고
+            last = temp; // last는 마지막이 된 temp가 됨
 
-            // col 리스트에 링크
+            // 열 리스트에 삽입 (모르겠다 다시 봐)
             hdnode[col]->u.next->down = temp;
             hdnode[col]->u.next = temp;
         }
