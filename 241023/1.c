@@ -13,10 +13,10 @@ struct entryNode {
 struct matrixNode {
     matrixPointer down;
     matrixPointer right;
-    tagfield tag;
-    union {
-        matrixPointer next;
-        struct entryNode entry;
+    tagfield tag; // head, entry 구분 (특별한 기능은 없지만 )
+    union { // 둘 중 하나만 사용 가능 = head와 entry에 따라 다른 기능 사용
+        matrixPointer next; // header노드일때 사용 - header 노드끼리의 연결
+        struct entryNode entry; // entry노드일때 사용
     } u;
 };
 matrixPointer hdnode[MAX_SIZE];
@@ -77,7 +77,7 @@ matrixPointer mread() {
         }
         currentRow = 0; // 현재 처리 중인 행의 인덱스를 나타내는 변수
         // 첫번쨰 행부터 시작하기 때문에 0으로 초기화
-        last = hdnode[0]; // 현재 행의 마지막 노드를 첫번쨰 해의 헤더 노드로 초기화
+        last = hdnode[0]; // 현재 행의 마지막 노드를 첫번쨰 행의 헤더 노드로 초기화
         // last는 행렬의 각 행에서 마지막으로 추가된 노드를 가리키는 포인터임
         // 오직 행에서 가장 마지막에 있는 노드를 위치함
         // 열의 last를 굳이 하지않는 이유는 열은 다 독립적인 리스트기 때문에
@@ -104,9 +104,11 @@ matrixPointer mread() {
             last->right = temp; // last는 header이거나 가장 마지막의 노드이므로 last뒤에 붙히고
             last = temp; // last는 마지막이 된 temp가 됨
 
-            // 열 리스트에 삽입 (모르겠다 다시 봐)
+            // 열 리스트에 삽입
+            // hdnode[col]: 열의 헤더 노드
+            // hdnode[col]->u.next: 현재 열에서 가장 마지막으로 삽입된 노드
             hdnode[col]->u.next->down = temp;
-            hdnode[col]->u.next = temp;
+            hdnode[col]->u.next = temp; // hdnode[i]->u.next를 언제나 가장 끝에 있는 노드에 연결
         }
         // 마지막 row 닫기
         last->right = hdnode[currentRow];
@@ -119,9 +121,13 @@ matrixPointer mread() {
         // 모든 헤더 노드 연결
         for (int i = 0; i < numHeads - 1; i++) {
             hdnode[i]->u.next = hdnode[i + 1];
+            // 헤더노드 배열을 연결리스트 형태로 연결해줌
+            // 근데 헤더노드 내의 u를 배열의 다음 요소로 연결해줌
+            // -> 현재 헤더 노드의 다음 헤더를 가리킴
         }
-        hdnode[numHeads - 1]->u.next = node;
-        node->right = hdnode[0];
+        hdnode[numHeads - 1]->u.next = node; // 마지막 노드는 전체 행렬 노드를 가리킴
+        // 헤더 노드의 마지막 노드는 matrix의 정보를 가진 node(전체 행렬 노드)에 연결
+        node->right = hdnode[0]; // matrix의 정보를 가진 node는 첫번째 헤더를 가리킴
     }
     
     return node;

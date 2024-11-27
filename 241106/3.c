@@ -38,25 +38,38 @@ treePointer newNode(int data) {
     return node;
 }
 void levelOrder(treePointer ptr) {
+    // front, rear 초기화 
     front = 0;
     rear = 0;
-    if (!ptr) return;
-    addq(ptr);  
+    if (!ptr) return; // ptr이 NULL이다(트리가 없다) -> 리턴
+    addq(ptr); // queue에 root 추가하고 시작
+    
+    // 무한 루프를 돌면서 큐에서 노드를 제거하고 레벨 순서대로 처리
     for(;;) {
-        ptr = deleteq();
+        ptr = deleteq(); // 큐에서 노드 하나 제거 (제거된 노드가 ptr에 들어감으로써 queue에선 빠짐과 동시에 levelorder의 대상이 됨)
         if (ptr) {
-            printf("%d ", ptr->data);
+            printf("%d ", ptr->data); // 노드 출력
             if (ptr->leftChild) {
-                addq(ptr->leftChild);
+                addq(ptr->leftChild); // 왼쪽 자식 큐에 추가
             }
             if (ptr->rightChild) {
-                addq(ptr->rightChild);
+                addq(ptr->rightChild); // 오른쪽 자식 큐에 추가
             }
         }
         else {
-            break;
+            break; // 큐가 비면 종료
         }
     }
+
+    /*
+        가장 처음 큐 : [ 4 ]
+        ptr == 4 : [ 3, 6 ] (4의 두 자식인 3, 6 추가)
+        ptr == 3 : [ 6, 2, 5 ] (3의 두 자식인 2, 5 추가)
+        ptr == 6 : [ 2, 5, 8 ] (6의 오른쪽 자식인 8 추가)
+        ptr == 2 : [ 5, 8 ] (2는 자식이 없으므로 추가될 요소가 없음)
+        ptr == 5 : [ 8 ] (5도 자식이 없으므로 추가될 요소가 없음)
+        ptr == 8 : [ NULL ] (8도 자식이 없어 추가될 요소가 없고, 8이 delete되면서 queue가 빔 -> 반복 종료)
+    */
 }
 void addq(treePointer ptr) {
     if (rear == MAX_QUEUE_SIZE - 1) {

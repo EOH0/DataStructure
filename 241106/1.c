@@ -21,7 +21,7 @@ int main() {
     root->rightChild->rightChild = newNode(8);
 
     printf("original inorder : ");
-    inorder(root);
+    inorder(root); // root(트리의 가장 최상위 노드)에서 inorder 탐색 시작
     printf("\n");
 
     treePointer copied = copy(root);
@@ -53,19 +53,19 @@ treePointer newNode(int data) {
 
     return node;
 }
-void inorder(treePointer ptr) {
-    if (ptr) {
-        inorder(ptr->leftChild);
-        printf("%d ", ptr->data);
-        inorder(ptr->rightChild);
+void inorder(treePointer ptr) { // inorder는 왼쪽 서브트리 -> 루트 -> 오른쪽 서브트리 순서로 방문
+    if (ptr) { // 현재 노드 ptr이 NULL이 아니면
+        inorder(ptr->leftChild); // 왼쪽 서브트리 방문 (왼쪽 서브트리가 왼쪽 자식을 가지면 다시 inorder 실행 => 재귀)
+        printf("%d ", ptr->data); // 왼쪽 서브트리를 모두 방문한 후 현재 노드의 data 출력
+        inorder(ptr->rightChild); // 그리고 오른쪽 서브트리 방문
     }
 }
 treePointer copy(treePointer original) {
-    treePointer temp = (treePointer)malloc(sizeof(treePointer));
+    treePointer temp = (treePointer)malloc(sizeof(treePointer)); // copy할 노드를 저장함
     if (original) {
-        temp->leftChild = copy(original->leftChild);
-        temp->rightChild = copy(original->rightChild);
-        temp->data = original->data;
+        temp->leftChild = copy(original->leftChild); // 왼쪽 서브트리르 다 돌고
+        temp->data = original->data; // 재귀 당시의 루트를 복사함
+        temp->rightChild = copy(original->rightChild); // 오른쪽 서브트리를 다 돌면서 복사를 다 하면
         return temp;
     }
     return NULL;

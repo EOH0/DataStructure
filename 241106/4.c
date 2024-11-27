@@ -41,14 +41,22 @@ treePointer newNode(char data) {
     return node;
 }
 void iterInorder(treePointer node) {
+    // iterInorder는 inorder와 탐색하는 순서는 같지만 방법에 차이가 있음
+    // iterInorder: 반복문과 스택을 사용
+    // Inorder: 재귀 사용
+
+    // 반복문 내에서 break가 걸릴때까지 무한 반복
     for (;;) {
-        for(; node; node = node->leftChild) {
-            push(node);
-        }
-        node = pop();
-        if (!node) break;
+        for(; node; node = node->leftChild) { // node의 왼쪽 자식이 NULL일때까지(왼쪽 서브트리의 끝까지) 이동
+            push(node); // 스택에 노드 push
+        } // 이 시점에 각 level의 가장 왼쪽 노드는 스택에 존재함
+
+        node = pop(); // 스택에서 pop한 노드를 node에 저장
+        if (!node) break; // node가 NULL이면 반복 종료
         printf("%c ", node->data);
         node = node->rightChild;
+        // 오른쪽 자식이 있으면 그냥 pop하고 출력됨
+        // 없으면 노드는 스택에서 가장 위에 있는 값을 pop하여 가져옴
     }
 }
 void push(treePointer node) {
