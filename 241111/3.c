@@ -20,8 +20,8 @@ element pop(int *n, int *size);
 int main() {
     // FILE* file = fopen("in1.txt", "r");
     // FILE* file = fopen("in2.txt", "r");
-    // FILE* file = fopen("in3.txt", "r");
-    FILE* file = fopen("in4.txt", "r");
+    FILE* file = fopen("in3.txt", "r");
+    // FILE* file = fopen("in4.txt", "r");
     
     if (file == NULL) {
         printf("file error\n");

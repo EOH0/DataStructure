@@ -51,9 +51,10 @@ void push(element item, int *n) {
         exit(EXIT_FAILURE);
     }
     i = ++(*n);
-    while((i != 1) && (item.key > heap[i / 2].key)) {
-        heap[i] = heap[i / 2];
+    while((i != 1) && (item.key > heap[i / 2].key)) { // 부모와 자식의 위치를 바꾸는 반복문
+    // i가 1이 아니다 (가장 위의 노드가 아니다) && 새로 push한 노드의 data가 현재 대상 노드의 부모의 data보다 크다
+        heap[i] = heap[i / 2]; // 현재 부모의 위치를 자식 위치로 옮김
         i /= 2;
     }
-    heap[i] = item;
+    heap[i] = item; // 빈 부모의 위치에 새로 들어온 노드 넣음
 }

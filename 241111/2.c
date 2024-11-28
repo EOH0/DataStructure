@@ -10,7 +10,7 @@ typedef struct {
 } element;
 element heap[MAX_ELEMENTS];
 
-int n = 0;
+int n = 0; // heap 최대 사이즈
 
 void push(element item, int *n);
 void printHeap(int size);
@@ -55,7 +55,7 @@ void printHeap(int size) {
     }
     printf("\n");
 }
-void push(element item, int *n) {
+void push(element item, int *n) { // MaxHeap 형성
     int i;
     if (HEAP_FULL(*n)) {
         fprintf(stderr, "The heap is full\n");
@@ -69,25 +69,29 @@ void push(element item, int *n) {
     heap[i] = item;
 }
 element pop(int *n, int *size) {
-    int parent, child;
+    int parent, child; // 부모, 자식의 인덱스
     element item, temp;
     if(HEAP_EMPTY(*n)) {
         fprintf(stderr, "The heap is empty\n");
         exit(EXIT_FAILURE);
     }
 
-    item = heap[1];
-    temp = heap[(*n)--];
-    parent = 1;
-    child = 2;
-    while(child  <= *n) {
+    item = heap[1]; // MaxHeap의 최상단에 위치한 노드는 항상 최댓값임 => 그 노드를 item에 저장
+    temp = heap[(*n)--]; // Heap의 마지막 원소를 temp에 저장하고 원소 개수를 하나 줄임 (temp에 들어간 원소를 Heap에서 삭제)
+    parent = 1; // 현재 부모 노드
+    child = 2; // 현재 자식 노드
+    while (child <= *n) {
+        // 자식 중 더 큰 값을 찾는다.
         if ((child < *n) && (heap[child].key < heap[child + 1].key)) {
             child++;
         }
+        // 부모 노드가 자식 노드보다 크거나 같으면 멈춘다.
         if (temp.key >= heap[child].key) break;
-        heap[parent] = heap[child];
-        parent = child;
-        child *= 2;
+
+        // 자식 노드를 부모로 올림.
+        heap[parent] = heap[child]; // 노드랑
+        parent = child; // 인덱스 값을 둘다 옮겨줌
+        child *= 2; // 다음 자식으로 이동
     }
     heap[parent] = temp;
     *size -= 1;
