@@ -68,6 +68,8 @@ void insertNode(nodePointer* head, int vertex) { // 가장 앞에 새로운 노�
     newNode->link = *head;
     *head = newNode;
 }
+// row, col개의 head를 기준으로 연결리스트가 다 따로 있음
+// head부터 NULL까지 출력하기
 void printList(nodePointer* head, int size) {
     for (int i = 1; i <= size; i++) {
         printf("Vertex %d: ", i);

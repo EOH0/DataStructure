@@ -84,11 +84,13 @@ void insertNode(nodePointer* head, int vertex) {
 }
 void dfs(int v, nodePointer *head) {
     nodePointer w;
-    visited[v] = TRUE;
-    printf("%d ", v);
+    visited[v] = TRUE; // 방문한 노드는 TRUE로 표시
+    printf("%d ", v); // 방문한 노드를 출력
+
+    // 현재 정점 v의 인접 리스트를 탐색
     for (w = head[v]; w; w = w->link) {
-        if (!visited[w->vertex]) {
-            dfs(w->vertex, head);
+        if (!visited[w->vertex]) { // 방문하지 않은 인접 노드 확인
+            dfs(w->vertex, head); // 재귀 호출로 탐색
         }
     }
 }
