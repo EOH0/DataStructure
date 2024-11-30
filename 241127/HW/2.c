@@ -25,7 +25,6 @@ int main() {
         return 1;
     }
 
-    // 그래프 생성 (정점과 간선을 수동으로 추가)
     nodePointer graph = createNode(0);
     graph->nextNode = createNode(1);
     graph->nextNode->nextNode = createNode(2);
@@ -44,15 +43,11 @@ int main() {
         }
     }
 
-    // 그래프 출력
     printGraph(graph);
-
-    // 메모리 해제 코드 필요 (생략)
 
     return 0;
 }
 
-// 정점 생성 함수
 nodePointer createNode(int key) {
     nodePointer newNode = (nodePointer)malloc(sizeof(node));
     newNode->key = key;
@@ -97,7 +92,6 @@ void insertEdge(nodePointer* graph, int start, int dest) {
     }
 }
 
-// 그래프 출력 함수
 void printGraph(nodePointer graph) {
     nodePointer nowNode = graph;
     while (nowNode != NULL) {

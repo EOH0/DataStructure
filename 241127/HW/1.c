@@ -5,7 +5,6 @@ typedef struct edge* edgePointer;
 typedef struct edge {
     int dstn;
     edgePointer nextEdge;
-    edgePointer nextMultiEdge; // 다중 간선 그룹을 위한 포인터
 } edge;
 
 typedef struct node* nodePointer;
@@ -21,7 +20,6 @@ void insertEdge(nodePointer* graph, int start, int dest);
 void printGraph(nodePointer graph);
 
 int main() {
-    // 그래프 생성 (정점과 간선을 수동으로 추가)
     nodePointer graph = createNode(0);
     graph->nextNode = createNode(1);
     graph->nextNode->nextNode = createNode(2);
@@ -29,7 +27,6 @@ int main() {
     graph->nextNode->nextNode->nextNode->nextNode = createNode(4);
     graph->nextNode->nextNode->nextNode->nextNode->nextNode = createNode(5);
 
-    // 간선 추가
     insertEdge(&graph, 1, 0);
     insertEdge(&graph, 1, 3);
     insertEdge(&graph, 2, 1);
@@ -42,15 +39,12 @@ int main() {
     insertEdge(&graph, 5, 1);
     insertEdge(&graph, 5, 4);
 
-    // 그래프 출력
     printGraph(graph);
 
-    // 메모리 해제 코드 필요 (생략)
 
     return 0;
 }
 
-// 정점 생성 함수
 nodePointer createNode(int key) {
     nodePointer newNode = (nodePointer)malloc(sizeof(node));
     newNode->key = key;
@@ -59,16 +53,13 @@ nodePointer createNode(int key) {
     return newNode;
 }
 
-// 간선 생성 함수
 edgePointer createEdge(int dstn) {
     edgePointer newEdge = (edgePointer)malloc(sizeof(edge));
     newEdge->dstn = dstn;
     newEdge->nextEdge = NULL;
-    newEdge->nextMultiEdge = NULL; // 다중 간선 포인터 초기화
     return newEdge;
 }
 
-// 간선 삽입 함수 (다중 간선 허용)
 void insertEdge(nodePointer* graph, int start, int dest) {
     nodePointer now = *graph;
     // start 정점 찾기
@@ -99,7 +90,6 @@ void insertEdge(nodePointer* graph, int start, int dest) {
     }
 }
 
-// 그래프 출력 함수
 void printGraph(nodePointer graph) {
     nodePointer nowNode = graph;
     while (nowNode != NULL) {
