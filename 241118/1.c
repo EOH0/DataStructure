@@ -68,7 +68,9 @@ void insertNode(nodePointer* head, int vertex) { // 가장 앞에 새로운 노�
     newNode->link = *head;
     *head = newNode;
 }
-// row, col개의 head를 기준으로 연결리스트가 다 따로 있음
+// row, col개의 head를 기준으로 연결리스트가 다 따로 있지 않음
+    // row, col의 head 연결 리스트는 모두 같은 리스트인데 중복으로 두번 나열한것
+    // ex) 1열과 1행의 연결리스트는 같은 리스트임
 // head부터 NULL까지 출력하기
 void printList(nodePointer* head, int size) {
     for (int i = 1; i <= size; i++) {
