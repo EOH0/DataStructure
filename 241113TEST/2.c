@@ -109,6 +109,8 @@ void delete(treePointer* node, int k) {
         else {
             treePointer maxNode = findMax(temp->leftChild); // 자식이 두개면 왼쪽 서브트리에서 가장 큰 값을 부모로 교체함
             // BST의 구조를 따르려면 부모가 오른쪽 서브트리보다 크면 안되므로 부모보다 작은 서브트리 중 가장 큰 값으로 교체
+            // 삭제하는 노드는 왼쪽 서브트리의 모든 노드보다 무조건 크고, 오른쪽 서브트리의 모든 노드보다 무조건 작음
+                // 왼쪽 서브트리에서 가장 큰 값은 이러한 부모의 조건을 항상 완벽히 만족
             temp->key = maxNode->key; // 어차피 교체를 해야하니까 free는 하지말고, 그냥 값만 바꿔줌
             delete(&temp->leftChild, maxNode->key); // 삭제한 노드의 자식 중 최대인 값을 복사해왔기 때문에 원본을 삭제해줌
         }

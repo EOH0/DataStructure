@@ -12,7 +12,7 @@ int check = 0;
 treePointer newNode(int key);
 void inorder(treePointer ptr);
 treePointer modifiedSearch(treePointer node, int k);
-void insert(treePointer* node, int k);
+void insert(treePointer* root, int k);
 treePointer findMax(treePointer root);
 
 int main() {
@@ -57,6 +57,7 @@ treePointer modifiedSearch(treePointer node, int k) { // 중복 검증 함수 / 
     treePointer now = NULL;
     while(node != NULL) {
         now = node;
+        // 경우를 중복 값이 있다 / 값이 현재 노드보다 작다 / 값이 현재 노드보다 크다 의 세가지 경우로 나눔
         if (k == node->key) { // 중복이 있으면 아무것도 추가되지 않음
             return NULL;
         }
@@ -73,20 +74,20 @@ treePointer modifiedSearch(treePointer node, int k) { // 중복 검증 함수 / 
     // 그러므로 now는 새로운 값의 부모가 될 노드를 가리킴
     return now;
 }
-void insert(treePointer* node, int k) {
+void insert(treePointer* root, int k) { // *node == *root
     treePointer ptr; // 새로운 값을 저장할 노드 포인터 / BST는 크기에 상관없이 들어온 순서대로 무조건 자식 위치에 감 (부모와 자리 교체되는 일이 없음)
-    treePointer temp = modifiedSearch(*node, k); // 새로 저장할 값의 부모가 될 노드
-    if (temp != NULL || (*node) == NULL) {
+    treePointer temp = modifiedSearch(*root, k); // 새로 저장할 값의 부모가 될 노드
+    if (temp != NULL || (*root) == NULL) {
         ptr = (treePointer)malloc(sizeof(struct tree));
         ptr->key = k;
         ptr->leftChild = ptr->rightChild = NULL;
         
-        if (*node) {
+        if (*root) {
             if (k < temp->key) temp->leftChild = ptr;
             else temp->rightChild = ptr;
         }
         else { // 가장 초기 (트리가 비었을때 )
-            *node = ptr;
+            *root = ptr;
         }
     }
 }
