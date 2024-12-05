@@ -76,16 +76,19 @@ void insertEdge(nodePointer* graph, int start, int dest) {
         // 새로운 간선 생성
         edgePointer newEdge = createEdge(dest);
 
-        edgePointer nowEdge = now->edgeList;
+        edgePointer nowEdge = now->edgeList; // 지금 간선의 상태를 저장
+        // 연결리스트의 시작을 불러왔음
 
         // 같은 목적지를 가진 다중 간선이 있는지 확인
         if (nowEdge == NULL) { // 없으면 리스트의 첫번쨰 요소로 추가
             now->edgeList = newEdge;
         } else { // 있으면 현재 리스트 끝으로 이동하여 새 간선을 추가
-            while (nowEdge->nextEdge != NULL) {
-                nowEdge = nowEdge->nextEdge;
-            }
-            nowEdge->nextEdge = newEdge;
+            // while (nowEdge->nextEdge != NULL) {
+            //     nowEdge = nowEdge->nextEdge;
+            // }
+            // nowEdge->nextEdge = newEdge;
+            newEdge->nextEdge = now->edgeList;
+            now->edgeList = newEdge;
         }
     } else {
         printf("Node %d not found\n", start);

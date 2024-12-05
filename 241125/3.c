@@ -27,7 +27,7 @@ int main() {
 
     mergeSort(a, idx);
 
-    for (int i = 0; i < idx; i++) {
+    for (int i = 1; i <= idx; i++) {
         printf("%d ", a[i].key);
     }
     printf("\n");
