@@ -51,8 +51,11 @@ void mergePass(element initList[], element mergedList[], int n, int s) { // merg
     int i, j;
     for (i = 0; i < n - 2*s + 1; i+= 2*s) {
         merge(initList, mergedList, i, i + s - 1, i + 2 * s - 1);
-    }
-    if ((i + s - 1) < n) merge(initList, mergedList, i, i + s - 1, n);
+            // i + s - 1: 두 세그먼트 중 첫번째 세그먼트의 마지막 인덱스
+            // i + 2*s - 1: 두 세그먼트 중 두번째 세그먼트의 마지막 인덱스
+                // s는 세그먼트의 크기이기 때문
+    } 
+    if ((i + s - 1) < n) merge(initList, mergedList, i, i + s - 1, n); 
     else {
         for (j = i; j <= n; j++) {
             mergedList[j] = initList[j];
@@ -60,19 +63,20 @@ void mergePass(element initList[], element mergedList[], int n, int s) { // merg
     }
 }
 
-void merge(element initList[], element mergeList[], int i, int m, int n) { // 병합만 담당
+void merge(element initList[], element mergeList[], int i, int m, int n) { // 모든 정렬은 병합과 동시에 이루어짐
     int j, k, t;
-    j = m + 1; // 두번쨰 sublist의 인덱스
-    k = i; // 머지리스트의 인덱스
+    j = m + 1; // 두번쨰 sublist의 인덱스 (합칠 두 배열 중 두번째)
+    k = i; // 머지리스트의 인덱스 (합칠 두 배열 중 첫번째)
 
     while(i <= m && j <= n) {
-        if (initList[i].key <= initList[j].key) {
-            mergeList[k++] = initList[i++];
+        if (initList[i].key <= initList[j].key) { // 두 배열을 비교해서 더 작은 값을 먼저 넣음
+            mergeList[k++] = initList[i++]; // 머지리스트(병합된 최종 리스트)에 작은 값을 넣고 다음 인덱스로 ++
         }
         else {
-            mergeList[k++] = initList[j++];
+            mergeList[k++] = initList[j++]; // 마찬가지로 작은 값 넣음
         }
     }
+    // 병합을 다하고 남은 요소들을 추가해줌 (세그먼트에 남아있는 것들)
     if (i > m) { // mergeList[k:n] = initList[j:n]
         for (t = j; t <= n; t++) {
             mergeList[t] = initList[t];

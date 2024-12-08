@@ -11,7 +11,7 @@ treePointer createNode(char data);
 int countNodes(treePointer root);
 
 int main() {
-    treePointer root = createNode('A');
+    treePointer root = createNode('A'); 
 
     // root->leftChild = createNode('B');
     // root->rightChild = createNode('C');

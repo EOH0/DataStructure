@@ -71,10 +71,11 @@ treePointer copy(treePointer original) {
     return NULL;
 }
 int equal(treePointer first, treePointer second) {
-    int eq = ((!first && !second)
-    || (first && second && first->data == second->data)
-    && equal(first->leftChild, second->leftChild)
-    && equal(first->rightChild, second->rightChild));
+    int eq = ((!first && !second) // 원본과 복사본의 첫번째가 NULL이 아닌가
+    || (first && second && first->data == second->data) // 원본과 복사본이 모두 NULL이 아니고 값이 값은가
+    // 이를 재귀적으로 탐색
+    && equal(first->leftChild, second->leftChild) // 왼쪽 서브트리
+    && equal(first->rightChild, second->rightChild)); // 오른쪽 서브트리
     
     return eq;
 }

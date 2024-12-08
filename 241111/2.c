@@ -94,6 +94,6 @@ element pop(int *n, int *size) {
         child *= 2; // 다음 자식으로 이동
     }
     heap[parent] = temp;
-    *size -= 1;
+    (*size)--;
     return item;
 }

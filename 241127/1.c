@@ -64,7 +64,7 @@ void adjust(element a[], int root, int n) { // 이진트리에서 힙을 만들�
         // child가 n보다 작다 == 절대 마지막 오른쪽 자식은 아니다 or 오른쪽 자식이 존재한다
         // && 오른쪽 자식의 값이 왼쪽 자식의 값보다 크다 == 두 자식 주 더 큰 값을 가지는 자식을 구하기 위함
             // 트리의 구조는 minheap으로 root부터 시작해서 내림차순으로 출력하는 거라 level기준 왼쪽에서 오른쪽으로 갈 수록 작아져야함
-            child++; // 
+            child++; // 왼쪽자식이 오른쪽 자식보다 크다면 더 작은 값을 부모로 올림
         }
         if (rootkey < a[child].key) { // root, max, child 비교 (minheap을 통한 내림차순 구현) maxheap으로 오름차순으로 하려면 조건 반대로 
             break;

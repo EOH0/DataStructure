@@ -5,7 +5,7 @@ typedef struct listNode *listPointer;
 typedef struct listNode{
     int data;
     listPointer link;
-};
+} listNode;
 
 int check = 0;
 
@@ -57,7 +57,7 @@ void insert(listPointer *first, int num, listPointer* trail) {
     }
 }
 void append(listPointer *first, int input, listPointer *trail) {
-    listPointer temp = (listPointer)malloc(sizeof(struct listNode));
+    listPointer temp = (listPointer)malloc(sizeof(listNode));
     temp->data = input;
     temp->link = NULL;
 

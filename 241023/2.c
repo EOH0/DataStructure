@@ -54,7 +54,7 @@ int main() {
 void dinsert(nodePointer header, nodePointer newnode) {
     // 새 노드를 현재 노드의 오른쪽에 삽입
     nodePointer now = header->rlink; // 노드가 들어갈 위치는 header의 오른쪽
-    while (now != header && now->data.key < newnode->data.key) {
+    while (now != header && now->data.key < newnode->data.key) { // 작은 수부터 큰수로 삽입
     // now가 header가 아닌 동안 (초기 상태가 아니면) && 새로 들어갈 노드의 key가 들어갈 자리의 key보다 크면(오름차순으로 정렬되야하므로 큰 수가 뒤에 가야됨)
         now = now->rlink; // 계속 다음 노드로 넘김
     }
